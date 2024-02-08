@@ -1,0 +1,64 @@
+//package mergeSort;
+
+public class practice3 {
+    public static void printArr(int arr[]) {
+        for(int i =0; i<arr.length; i++){
+          System.out.print(arr[i]+" ");
+        }
+        
+    }
+    
+    public static void mergeSortt(int arr[], int s, int e) {
+
+        int mid = (s+e)/2;
+        //base case
+        if(s>=e){
+            return;
+        }
+        //left part
+        mergeSortt(arr, s, mid);
+
+        //right part
+        mergeSortt(arr, mid+1, e);
+        //merge
+        merge(arr, s,mid, e);
+
+    }
+    public static void merge(int arr[],int s,int mid,int e) {
+       
+      //creating a new temp array
+      int temp [] = new int[s-e+1];
+      //iterators
+      int i = s;           //iterator for left part
+      int j = mid+1;      //iterator for right 
+      int k = 0;         //iterator for temp
+      while(i<=mid && j<=e){
+           if(arr[i]<arr[j]){
+            arr[k++] = arr[i++];
+           }else{
+            arr[k++] = arr[j++];
+           }
+      }
+      //part left after the loop
+      //print => array
+      
+      //left part
+      while(i<=mid){
+        arr[k++]= arr[i++];
+      }
+    //right part
+    while(i<=mid){
+        arr[k++]= arr[j++];
+      }
+      //copy temp array -> element to original array
+      for(k=0,i=s;k<temp.length;k++,i++){
+        arr[i] = arr[k];
+      }
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {3,2,5,7,5,2,5,7,9};   
+        mergeSortt(arr, 0, arr.length-1);  
+        printArr(arr);
+    }
+}
